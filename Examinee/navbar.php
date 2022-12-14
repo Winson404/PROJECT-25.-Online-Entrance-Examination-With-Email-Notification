@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SPS Entrance Exam.</title>
   <!---FAVICON ICON FOR WEBSITE--->
-  <link rel="shortcut icon" type="image/png" href="../images/logo.jpg">
+  <link rel="shortcut icon" type="image/png" href="../images/logo2.png">
   <!-- Select2 -->
   <link rel="stylesheet" href="../plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -58,7 +58,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="../images/logo.png" alt="BMSLogo" height="105" width="105">
+    <img class="animation__shake" src="../images/logo2.png" alt="BMSLogo" height="105" width="105">
   </div> 
 
   <!-- Navbar -->
@@ -146,7 +146,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
-      <img src="../images/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="../images/logo2.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">SPS Entrance Exam.</span>
     </a>
 
@@ -158,8 +158,15 @@
       <nav class="mt-3">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
        
+          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">EXAMINATION MANAGEMENT</li>
           <li class="nav-item">
-            <a href="dashboard.php" class="nav-link bg-gradient-primary active"><i class="fa-solid fa-gauge"></i><p>&nbsp;&nbsp; Dashboard</p></a>
+            <a href="bookExam.php" class="nav-link"><i class="fa-solid fa-calendar-days"></i><p>&nbsp;&nbsp; Book entrance exam.</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa-solid fa-file-pen"></i><p>&nbsp; Take examination</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa-solid fa-eye"></i><p>&nbsp;&nbsp; View exam. results</p></a>
           </li>
 
         </ul>

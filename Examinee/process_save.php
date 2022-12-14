@@ -74,6 +74,34 @@
 
 
 
+
+    // SAVE SCHEDULE - BOOKEXAMSCHEDULE.PHP
+    if(isset($_POST['confirm_booking'])) {
+    	$user_Id     = mysqli_real_escape_string($conn, $_POST['user_Id']);
+		$schedID     = mysqli_real_escape_string($conn, $_POST['schedID']);
+		$date_booked = date('Y-m-d');
+
+		$fetch = mysqli_query($conn, "SELECT * FROM exam_bookings WHERE bookingsUserId='$user_Id' ");
+		if(mysqli_num_rows($fetch) > 0) {
+			$_SESSION['message'] = "You have already booked a schedule";
+	        $_SESSION['text'] = "Please try again.";
+	        $_SESSION['status'] = "error";
+			header("Location: bookExam.php");
+		} else {
+		  $save = mysqli_query($conn, "INSERT INTO exam_bookings (bookingsUserId, bookingsSchedID, date_booked) VALUES ('$user_Id', '$schedID', '$date_booked')");
+	      if($save) {
+	      	$_SESSION['message'] = "You have successfully booked your examination schedule.";
+	        $_SESSION['text'] = "Saved successfully!";
+	        $_SESSION['status'] = "success";
+			header("Location: bookExam.php");
+	      } else {
+	        $_SESSION['message'] = "Something went wrong while saving the information.";
+	        $_SESSION['text'] = "Please try again.";
+	        $_SESSION['status'] = "error";
+			header("Location: bookExam.php");
+	      } 
+		}
+    }
 	
 
 ?>

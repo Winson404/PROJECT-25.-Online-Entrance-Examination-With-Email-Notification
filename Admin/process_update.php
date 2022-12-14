@@ -681,14 +681,133 @@
 
 
 
+    // UPDATE SCHEDULE - SCHEDULE_ADD_UPDATE.PHP
+    if(isset($_POST['update_schedule'])) {
+    	$schedID   = mysqli_real_escape_string($conn, $_POST['schedID']);
+    	$date      = mysqli_real_escape_string($conn, $_POST['date']);
+		$timestart = mysqli_real_escape_string($conn, $_POST['timestart']);
+		$timeend   = mysqli_real_escape_string($conn, $_POST['timeend']);
+
+		$fetch = mysqli_query($conn, "SELECT * FROM schedule WHERE schedID='$schedID' ");
+		$row = mysqli_fetch_array($fetch);
+		$a = $row['schedDate'];
+		$b = $row['schedTimeStart'];
+		$c = $row['schedTimeEnd'];
+
+		if($date == $a AND $timestart == $b AND $timeend == $c) {
+			  $update = mysqli_query($conn, "UPDATE schedule SET schedDate='$date', schedTimeStart='$timestart', schedTimeEnd='$timeend' WHERE schedID='$schedID' ");
+		      if($update) {
+		      	$_SESSION['message'] = "Schedule has been updated.";
+		        $_SESSION['text'] = "Saved successfully!";
+		        $_SESSION['status'] = "success";
+				header("Location: schedule.php?page=".$schedID);
+		      } else {
+		        $_SESSION['message'] = "Something went wrong while saving the information.";
+		        $_SESSION['text'] = "Please try again.";
+		        $_SESSION['status'] = "error";
+				header("Location: schedule.php?page=".$schedID);
+		      }
+		} else {
+
+			$fetch = mysqli_query($conn, "SELECT * FROM schedule WHERE schedDate='$date' AND schedTimeStart='$timestart' AND schedTimeEnd='$timeend' ");
+			if(mysqli_num_rows($fetch) > 0) {
+				$_SESSION['message'] = "This schedule already exists.";
+		        $_SESSION['text'] = "Please try again.";
+		        $_SESSION['status'] = "error";
+				header("Location: schedule.php?page=".$schedID);
+			} else {
+				  $update = mysqli_query($conn, "UPDATE schedule SET schedDate='$date', schedTimeStart='$timestart', schedTimeEnd='$timeend' WHERE schedID='$schedID' ");
+			      if($update) {
+			      	$_SESSION['message'] = "Schedule has been updated.";
+			        $_SESSION['text'] = "Saved successfully!";
+			        $_SESSION['status'] = "success";
+					header("Location: schedule.php?page=".$schedID);
+			      } else {
+			        $_SESSION['message'] = "Something went wrong while saving the information.";
+			        $_SESSION['text'] = "Please try again.";
+			        $_SESSION['status'] = "error";
+					header("Location: schedule.php?page=".$schedID);
+			      }
+			}
+
+		}
+
+		
+    }
 
 
 
 
 
+    // UPDATE SCHEDULE - SCHEDULE_ADD_UPDATE.PHP
+    if(isset($_POST['update_bookingSchedule'])) {
+    	$bookingsId  = mysqli_real_escape_string($conn, $_POST['bookingsId']);
+    	$examinee    = mysqli_real_escape_string($conn, $_POST['examinee']);
+		$dateSched   = mysqli_real_escape_string($conn, $_POST['dateSched']);
+
+		$fetch = mysqli_query($conn, "SELECT * FROM exam_bookings WHERE bookingsId='$bookingsId' ");
+		$row = mysqli_fetch_array($fetch);
+		$user_Id = $row['bookingsUserId'];
+
+		if($examinee == $user_Id) {
+			  $update = mysqli_query($conn, "UPDATE exam_bookings SET bookingsUserId='$examinee', bookingsSchedID='$dateSched', date_booked='$date_booked' WHERE bookingsId='$bookingsId' ");
+		      if($update) {
+		      	$_SESSION['message'] = "Booking schedule has been updated.";
+		        $_SESSION['text'] = "Saved successfully!";
+		        $_SESSION['status'] = "success";
+				header("Location: sched_ExamTakers_add_update.php?page=".$bookingsId);
+		      } else {
+		        $_SESSION['message'] = "Something went wrong while saving the information.";
+		        $_SESSION['text'] = "Please try again.";
+		        $_SESSION['status'] = "error";
+				header("Location: sched_ExamTakers_add_update.php?page=".$bookingsId);
+		      } 
+		} else {
+			$fetch = mysqli_query($conn, "SELECT * FROM exam_bookings WHERE bookingsUserId='$examinee' ");
+			if(mysqli_num_rows($fetch) > 0) {
+				$_SESSION['message'] = "Examinee has already been given a schedule.";
+		        $_SESSION['text'] = "Please try again.";
+		        $_SESSION['status'] = "error";
+				header("Location: sched_ExamTakers_add_update.php?page=".$bookingsId);
+			} else {
+				 $update = mysqli_query($conn, "UPDATE exam_bookings SET bookingsUserId='$examinee', bookingsSchedID='$dateSched', date_booked='$date_booked' WHERE bookingsId='$bookingsId' ");
+			      if($update) {
+			      	$_SESSION['message'] = "Booking schedule has been updated.";
+			        $_SESSION['text'] = "Saved successfully!";
+			        $_SESSION['status'] = "success";
+					header("Location: sched_ExamTakers_add_update.php?page=".$bookingsId);
+			      } else {
+			        $_SESSION['message'] = "Something went wrong while saving the information.";
+			        $_SESSION['text'] = "Please try again.";
+			        $_SESSION['status'] = "error";
+					header("Location: sched_ExamTakers_add_update.php?page=".$bookingsId);
+			      } 
+			}
+
+		}
+		
+    }
 
 
 
+
+    // CONFIRM BOOKING SCHEDULE - SCHED_EXAMTAKERS_DELETE.PHP
+	if(isset($_POST['confirm_booking'])) {
+		$Id = $_POST['examBookId'];
+
+		$confirm = mysqli_query($conn, "UPDATE exam_bookings SET bookingsStatus='Confirmed' WHERE bookingsId='$Id' ");
+		 if($confirm) {
+	      	$_SESSION['message'] = "Booking schedule has been confirmed!";
+	        $_SESSION['text'] = "Confirmation successful!";
+	        $_SESSION['status'] = "success";
+			header("Location: sched_ExamTakers.php");
+	      } else {
+	        $_SESSION['message'] = "Something went wrong while deleting the record";
+	        $_SESSION['text'] = "Please try again.";
+	        $_SESSION['status'] = "error";
+			header("Location: sched_ExamTakers.php");
+	      }
+	}
 
 
 

@@ -32,7 +32,7 @@
                         echo '<img src="images-customization/'.$pic['picture'].'" alt="" class="img-fluid">';
                       }
                     } else {
-                      echo '<img src="images/logo.png" alt="" class="img-fluid">';
+                      echo '<img src="images/logo2.png" alt="" style="height: 100%;width: 50%">';
                     }
                   ?>
               </div>
@@ -41,7 +41,7 @@
                     <div class="col-6 p-3">
                       <!-- <a href="login.php" class="h1"><b>Login</b></a> -->
                       <a href="login.php" class="h1">
-                        <img src="images/logo.jpg" alt="logo" class="img-fluid">
+                        <img src="images/logo2.png" alt="logo" class="img-fluid">
                       </a>
                     </div>
                   </div>
@@ -135,7 +135,7 @@
                         echo '<img src="images-customization/'.$pic['picture'].'" alt="" class="img-fluid">';
                       }
                     } else {
-                      echo '<img src="images/logo.png" alt="" class="img-fluid"  style="height: 100%;width: 70%">';
+                      echo '<img src="images/logo2.png" alt=""   style="height: 100%;width: 50%">';
                     }
                   ?>
               </div>
@@ -144,7 +144,7 @@
                     <div class="col-5 p-3">
                       <!-- <a href="login.php" class="h1"><b>Login</b></a> -->
                       <a href="login.php" class="h1">
-                        <img src="images/logo.jpg" alt="logo" class="img-fluid">
+                        <img src="images/logo2.png" alt="logo" class="img-fluid">
                       </a>
                     </div>
                   </div>

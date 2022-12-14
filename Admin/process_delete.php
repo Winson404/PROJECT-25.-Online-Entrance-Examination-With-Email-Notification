@@ -61,7 +61,52 @@
 
 
 
+
+	// DELETE SCHEDULE - SCHEDULE_DELETE.PHP
+	if(isset($_POST['delete_schedule'])) {
+		$schedID = $_POST['schedID'];
+
+		$delete = mysqli_query($conn, "DELETE FROM schedule WHERE schedID='$schedID'");
+		 if($delete) {
+	      	$_SESSION['message'] = "Schedule has been deleted!";
+	        $_SESSION['text'] = "Deleted successfully!";
+	        $_SESSION['status'] = "success";
+			header("Location: schedule.php");
+	      } else {
+	        $_SESSION['message'] = "Something went wrong while deleting the record";
+	        $_SESSION['text'] = "Please try again.";
+	        $_SESSION['status'] = "error";
+			header("Location: schedule.php");
+	      }
+	}
+
+
+
+
+
+	// DELETE BOOKING SCHEDULE - SCHED_EXAMTAKERS_DELETE.PHP
+	if(isset($_POST['delete_booking'])) {
+		$Id = $_POST['examBookId'];
+
+		$del = mysqli_query($conn, "DELETE FROM exam_bookings WHERE bookingsId='$Id' ");
+		 if($del) {
+	      	$_SESSION['message'] = "Booking schedule has been deleted!";
+	        $_SESSION['text'] = "Deleted successfully!";
+	        $_SESSION['status'] = "success";
+			header("Location: sched_ExamTakers.php");
+	      } else {
+	        $_SESSION['message'] = "Something went wrong while deleting the record";
+	        $_SESSION['text'] = "Please try again.";
+	        $_SESSION['status'] = "error";
+			header("Location: sched_ExamTakers.php");
+	      }
+	}
+
+
+
 	
+
+
 
 
 

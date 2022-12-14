@@ -595,8 +595,27 @@
                               <input type="text" class="form-control"  placeholder="School last attended" name="schoolLastAttended" required>
                             </div>
                         </div>
-
-                       
+                        <div class="col-MD-6">
+                          <div class="form-group">
+                            <span class="text-dark"><b>Upload receipt</b></span>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="exampleInputFile" name="fileToUpload" onchange="getImagePreview(event)">
+                                  <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                  <span class="input-group-text">Upload</span>
+                                </div>
+                              </div>
+                              <!-- <p class="help-block text-danger">Max. 500KB</p> -->
+                          </div>
+                        </div>
+                         <!-- LOAD IMAGE PREVIEW -->
+                        <div class="col-MD-6">
+                            <div class="form-group" id="preview">
+                            </div>
+                        </div>
+                        
                     </div>
                     <!-- END ROW -->
               </div>
@@ -636,6 +655,23 @@
 <?php include 'footer.php';  ?>
 
 <script>
+
+  function getImagePreview(event)
+  {
+    var image=URL.createObjectURL(event.target.files[0]);
+    var imagediv= document.getElementById('preview');
+    var newimg=document.createElement('img');
+    imagediv.innerHTML='';
+    newimg.src=image;
+    newimg.width="90";
+    newimg.height="90";
+    newimg.style['border-radius']="50%";
+    newimg.style['display']="block";
+    newimg.style['margin-left']="auto";
+    newimg.style['margin-right']="auto";
+    newimg.style['box-shadow']="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px";
+    imagediv.appendChild(newimg);
+  }
 
   // AUTO CHANGE FOR COURSE FOR COLLEGE AND STRAND FOR SHS
   function myCatFunction() {

@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SPS Entrance Exam.</title>
   <!---FAVICON ICON FOR WEBSITE--->
-  <link rel="shortcut icon" type="image/png" href="../images/logo.jpg">
+  <link rel="shortcut icon" type="image/png" href="../images/logo2.png">
   <!-- Select2 -->
   <link rel="stylesheet" href="../plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -58,7 +58,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="../images/logo.png" alt="BMSLogo" height="105" width="105">
+    <img class="animation__shake" src="../images/logo2.png" alt="BMSLogo" height="105" width="105">
   </div> 
 
   <!-- Navbar -->
@@ -142,7 +142,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
-      <img src="../images/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="../images/logo2.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">SPS Entrance Exam.</span>
     </a>
 
@@ -158,30 +158,31 @@
             <a href="dashboard.php" class="nav-link bg-gradient-primary active"><i class="fa-solid fa-gauge"></i><p>&nbsp;&nbsp; Dashboard</p></a>
           </li>
 
-          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">SYSTEM USERS</li>
+          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">MANAGEMENT</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa-solid fa-users-line"></i>
-              <p>&nbsp;System Users lists <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="users.php" class="nav-link"><i class="fa-solid fa-user-secret"></i><p>&nbsp;&nbsp; Admin accounts</p></a>
-              </li>
-              <li class="nav-item">
-                <a href="examinee.php" class="nav-link"><i class="fa-solid fa-graduation-cap"></i><p>&nbsp;&nbsp; Examinee accounts</p></a>
-              </li>
-            </ul>
+            <a href="schedule.php" class="nav-link"><i class="fa-solid fa-calendar-days"></i><p>&nbsp;&nbsp; Manage schedule</p></a>
           </li>
-          
-          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">CUSTOMIZE</li>
           <li class="nav-item">
-            <a href="customize.php" class="nav-link"><i class="fa-solid fa-palette"></i><p>&nbsp;&nbsp; Customize</p></a>
+            <a href="examinee.php" class="nav-link"><i class="fa-solid fa-user-group"></i><p>&nbsp; Examinee accounts</p></a>
           </li>
 
+          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">EXAMINATION MGMT</li>
+          <li class="nav-item">
+            <a href="sched_ExamTakers.php" class="nav-link"><i class="fa-solid fa-calendar-days"></i><p>&nbsp;&nbsp; Sched. and exam. takers</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa-solid fa-eye"></i><p>&nbsp;&nbsp; Examination results</p></a>
+          </li>
+
+
+          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">SYSTEM USERS MGMT</li>
+          <li class="nav-item">
+            <a href="users.php" class="nav-link"><i class="fa-solid fa-user-secret"></i><p>&nbsp;&nbsp; Admin accounts</p></a>
+          </li>
+          
           <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">DATABASE MGMT</li>
           <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fa-solid fa-window-restore"></i><p>&nbsp;&nbsp;&nbsp; Back-up and Restore<i class="right fas fa-angle-left"></i></p></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-window-restore"></i><p>&nbsp;&nbsp; Back-up and Restore<i class="right fas fa-angle-left"></i></p></a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="backup.php" class="nav-link"><i class="fa-solid fa-users"></i><p>&nbsp; Back-up database</p></a>
@@ -190,6 +191,11 @@
                 <a href="restore.php" class="nav-link"><i class="fa-solid fa-puzzle-piece"></i><p>&nbsp;&nbsp; Restore database</p></a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">CUSTOMIZATION MGMT</li>
+          <li class="nav-item">
+            <a href="customize.php" class="nav-link"><i class="fa-solid fa-palette"></i><p>&nbsp;&nbsp; Customize</p></a>
           </li>
 
         </ul>
