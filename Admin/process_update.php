@@ -812,4 +812,200 @@
 
 
 
+
+
+
+
+// UPDATE CATEGORY - CATEGORY_UPDATE_DELETE.PHP
+if(isset($_POST['update_category'])) {
+	$category_Id   = $_POST['category_Id'];
+	$category_name = $_POST['category_name'];
+	$no_items      = $_POST['no_items'];
+	$timelimit     = $_POST['timelimit'];
+
+	$save = mysqli_query($conn, "UPDATE category SET cat_name='$category_name', no_of_items='$no_items', time_limit='$timelimit' WHERE cat_Id='$category_Id'");
+	if($save) {
+  	$_SESSION['message'] = "Category has been successfully updated!";
+    $_SESSION['text'] = "Updated successfully!";
+    $_SESSION['status'] = "success";
+		header("Location: category.php");
+  } else {
+    $_SESSION['message'] = "Something went wrong while updating the information.";
+    $_SESSION['text'] = "Please try again.";
+    $_SESSION['status'] = "error";
+		header("Location: category.php");
+  }
+}
+
+	
+
+	// UPDATE QUESTION BY CATEGORY - CATEGORY_ADD_QUESION_UPDATE.PHP
+	if(isset($_POST['update_question'])) {
+		$cat_Id         = $_POST['cat_Id'];
+		$quest_Id       = $_POST['quest_Id'];
+		// $question       = $_POST['question'];
+		// $choice_one     = $_POST['choice_one'];
+		// $choice_two     = $_POST['choice_two'];
+		// $choice_three   = $_POST['choice_three'];
+		// $choice_four    = $_POST['choice_four'];
+		// $correct_answer = $_POST['correct_answer'];
+		$question       = $_POST['question'];
+		$question        = str_replace("'", "\'", $question);
+		
+		$choice_one     = $_POST['choice_one'];
+		$choice_one        = str_replace("'", "\'", $choice_one);
+
+		$choice_two     = $_POST['choice_two'];
+		$choice_two        = str_replace("'", "\'", $choice_two);
+
+		$choice_three   = $_POST['choice_three'];
+		$choice_three        = str_replace("'", "\'", $choice_three);
+
+		$choice_four    = $_POST['choice_four'];
+		$choice_four        = str_replace("'", "\'", $choice_four);
+
+		$correct_answer = $_POST['correct_answer'];
+		$correct_answer        = str_replace("'", "\'", $correct_answer);
+
+		$update = mysqli_query($conn, "UPDATE questions SET question='$question', choice_one='$choice_one', choice_two='$choice_two', choice_three='$choice_three', choice_four='$choice_four', correct_answer='$correct_answer' WHERE quest_Id='$quest_Id'");
+		if($update) {
+	  	$_SESSION['message'] = "Question has been successfully updated!";
+	    $_SESSION['text'] = "Updated successfully!";
+	    $_SESSION['status'] = "success";
+			header('Location: category_add_question_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$cat_Id.'');
+	  } else {
+	    $_SESSION['message'] = "Something went wrong while updating the information.";
+	    $_SESSION['text'] = "Please try again.";
+	    $_SESSION['status'] = "error";
+			header('Location: category_add_question_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$cat_Id.'');
+	  }
+	}
+
+
+
+
+
+	// UPDATE QUESTION - QUESTIONS_UPDATE.PHP
+	if(isset($_POST['update_quest'])) {
+		$cat_Id         = $_POST['category_Id'];
+		$quest_Id       = $_POST['quest_Id'];
+		// $question       = $_POST['question'];
+		// $choice_one     = $_POST['choice_one'];
+		// $choice_two     = $_POST['choice_two'];
+		// $choice_three   = $_POST['choice_three'];
+		// $choice_four    = $_POST['choice_four'];
+		// $correct_answer = $_POST['correct_answer'];
+		$question       = $_POST['question'];
+		$question        = str_replace("'", "\'", $question);
+		
+		$choice_one     = $_POST['choice_one'];
+		$choice_one        = str_replace("'", "\'", $choice_one);
+
+		$choice_two     = $_POST['choice_two'];
+		$choice_two        = str_replace("'", "\'", $choice_two);
+
+		$choice_three   = $_POST['choice_three'];
+		$choice_three        = str_replace("'", "\'", $choice_three);
+
+		$choice_four    = $_POST['choice_four'];
+		$choice_four        = str_replace("'", "\'", $choice_four);
+
+		$correct_answer = $_POST['correct_answer'];
+		$correct_answer        = str_replace("'", "\'", $correct_answer);
+
+		$fetch = mysqli_query($conn, "SELECT * FROM questions WHERE quest_Id='$quest_Id'");
+		if(mysqli_num_rows($fetch) > 0) {
+			$row = mysqli_fetch_array($fetch);
+			$quest_cat_Id = $row['quest_category_Id'];
+
+			if($cat_Id == $quest_cat_Id) {
+				$update = mysqli_query($conn, "UPDATE questions SET quest_category_Id='$cat_Id', question='$question', choice_one='$choice_one', choice_two='$choice_two', choice_three='$choice_three', choice_four='$choice_four', correct_answer='$correct_answer' WHERE quest_Id='$quest_Id'");
+				if($update) {
+			  	$_SESSION['message'] = "Question has been successfully updated!";
+			    $_SESSION['text'] = "Updated successfully!";
+			    $_SESSION['status'] = "success";
+					header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$cat_Id.'');
+			  } else {
+			    $_SESSION['message'] = "Something went wrong while updating the information.";
+			    $_SESSION['text'] = "Please try again.";
+			    $_SESSION['status'] = "error";
+					header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+			  }
+			} else {
+
+			  $get_cat = mysqli_query($conn, "SELECT * FROM category WHERE cat_Id='$cat_Id'");
+				if(mysqli_num_rows($get_cat) > 0) {
+					$row2 = mysqli_fetch_array($get_cat);
+					$qa = $row2['questions_added'];
+					$items = $row2['no_of_items'];
+					$add = $row2['questions_added'] + 1;
+
+					if($qa < $items) {
+						$update2 = mysqli_query($conn, "UPDATE category SET questions_added='$add' WHERE cat_Id='$cat_Id'");
+						if($update2) {
+							$get_cat2 = mysqli_query($conn, "SELECT * FROM category WHERE cat_Id='$quest_cat_Id'");
+							if(mysqli_num_rows($get_cat2) > 0) {
+									$row3 = mysqli_fetch_array($get_cat2);
+									$qa2 = $row3['questions_added']-1;
+									$update3 = mysqli_query($conn, "UPDATE category SET questions_added='$qa2' WHERE cat_Id='$quest_cat_Id'");
+									if($update3) {
+							    	$update = mysqli_query($conn, "UPDATE questions SET quest_category_Id='$cat_Id', question='$question', choice_one='$choice_one', choice_two='$choice_two', choice_three='$choice_three', choice_four='$choice_four', correct_answer='$correct_answer' WHERE quest_Id='$quest_Id'");
+											if($update) {
+												$_SESSION['message'] = "Question has been updated!";
+									      $_SESSION['text'] = "Updated successfully!";
+									      $_SESSION['status'] = "success";
+												header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$cat_Id.'');
+											} else {
+										    $_SESSION['message'] = "Something went wrong while updating the information.";
+										    $_SESSION['text'] = "Please try again.";
+										    $_SESSION['status'] = "error";
+												header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+										  }
+							    } else {
+							      $_SESSION['message'] = "Something went wrong while saving the information.";
+							      $_SESSION['text'] = "Please try again.";
+							      $_SESSION['status'] = "error";
+										header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+							    }
+							} else {
+								$_SESSION['message'] = "Category not found.";
+						    $_SESSION['text'] = "Please try again.";
+						    $_SESSION['status'] = "error";
+								header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+							}
+				    } else {
+				      $_SESSION['message'] = "Something went wrong while saving the information.";
+				      $_SESSION['text'] = "Please try again.";
+				      $_SESSION['status'] = "error";
+							header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+				    }
+					} else {
+						$_SESSION['message'] = "You have reached the limit of items in this category.";
+				    $_SESSION['text'] = "Please try again.";
+				    $_SESSION['status'] = "error";
+						header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+					}
+
+				} else {
+						$_SESSION['message'] = "Category not found.";
+				    $_SESSION['text'] = "Please try again.";
+				    $_SESSION['status'] = "error";
+						header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$quest_cat_Id.'');
+				}
+			  
+				
+			}
+		} else {
+			$_SESSION['message'] = "Question not found.";
+	    $_SESSION['text'] = "Please try again.";
+	    $_SESSION['status'] = "error";
+			header('Location: questions_update.php?quest_Id='.$quest_Id.'&&cat_Id='.$cat_Id.'');
+		}
+
+		
+	}
+
+
+
+
 ?>

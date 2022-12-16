@@ -160,10 +160,16 @@
 
           <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">MANAGEMENT</li>
           <li class="nav-item">
+            <a href="examinee.php" class="nav-link"><i class="fa-solid fa-user-group"></i><p>&nbsp; Examinee accounts</p></a>
+          </li>
+          <li class="nav-item">
             <a href="schedule.php" class="nav-link"><i class="fa-solid fa-calendar-days"></i><p>&nbsp;&nbsp; Manage schedule</p></a>
           </li>
           <li class="nav-item">
-            <a href="examinee.php" class="nav-link"><i class="fa-solid fa-user-group"></i><p>&nbsp; Examinee accounts</p></a>
+            <a href="category.php" class="nav-link"><i class="fa-solid fa-calendar-days"></i><p>&nbsp;&nbsp; Manage Category</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="questions.php" class="nav-link"><i class="fa-brands fa-think-peaks"></i><p>&nbsp; Manage Questions</p></a>
           </li>
 
           <li class="nav-header text-secondary text-xs" style="margin-bottom: -10px;">EXAMINATION MGMT</li>

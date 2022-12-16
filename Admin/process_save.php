@@ -497,6 +497,201 @@
 
 	
 
+    // SAVE CATEGORY - CATEGORY_ADD.PHP
+if(isset($_POST['category'])) {
+	$category_name = $_POST['category_name'];
+	$no_items      = $_POST['no_items'];
+	$timelimit     = $_POST['timelimit'];
+
+	$fetch = mysqli_query($conn, "SELECT * FROM category WHERE cat_name='$category_name'");
+	if(mysqli_num_rows($fetch) > 0) {
+		$_SESSION['message'] = "Category name already exists.";
+    $_SESSION['text'] = "Please try again.";
+    $_SESSION['status'] = "error";
+		header("Location: category.php");
+	} else {
+		$save = mysqli_query($conn, "INSERT INTO category (cat_name, no_of_items, time_limit) VALUES ('$category_name', '$no_items', '$timelimit') ");
+		if($save) {
+    	$_SESSION['message'] = "Category has been successfully saved!";
+      $_SESSION['text'] = "Saved successfully!";
+      $_SESSION['status'] = "success";
+			header("Location: category.php");
+    } else {
+      $_SESSION['message'] = "Something went wrong while saving the information.";
+      $_SESSION['text'] = "Please try again.";
+      $_SESSION['status'] = "error";
+			header("Location: category.php");
+    }
+	}
+}
+
+
+
+// SAVE QUESTION BY CATEGORY - CATEGORY_ADD_QUESTION.PHP
+if(isset($_POST['save_question'])) {
+	$cat_Id         = $_POST['cat_Id'];
+	$question       = $_POST['question'];
+	$question        = str_replace("'", "\'", $question);
+
+	$choice_one     = $_POST['choice_one'];
+	$choice_one        = str_replace("'", "\'", $choice_one);
+
+	$choice_two     = $_POST['choice_two'];
+	$choice_two        = str_replace("'", "\'", $choice_two);
+
+	$choice_three   = $_POST['choice_three'];
+	$choice_three        = str_replace("'", "\'", $choice_three);
+
+	$choice_four    = $_POST['choice_four'];
+	$choice_four        = str_replace("'", "\'", $choice_four);
+
+	$correct_answer = $_POST['correct_answer'];
+	$correct_answer        = str_replace("'", "\'", $correct_answer);
+
+
+	$question_exist = mysqli_query($conn, "SELECT * FROM questions WHERE question='$question' AND quest_category_Id='$cat_Id'");
+	if(mysqli_num_rows($question_exist) > 0) {
+			$_SESSION['message'] = "Question already exist under this selected category.";
+      $_SESSION['text'] = "Please try again.";
+      $_SESSION['status'] = "error";
+			header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+	} else {
+
+			$save = mysqli_query($conn, "INSERT INTO questions (quest_category_Id, question, choice_one, choice_two, choice_three, choice_four, correct_answer) VALUES ('$cat_Id', '$question', '$choice_one', '$choice_two', '$choice_three', '$choice_four', '$correct_answer')");
+			if($save) {
+
+					$get_questions_added = mysqli_query($conn, "SELECT * FROM category WHERE cat_Id='$cat_Id'");
+					if(mysqli_num_rows($get_questions_added) > 0) {
+
+						$row = mysqli_fetch_array($get_questions_added);
+						// USED TO COMPARE IN IF STATEMENT BELOW
+						$questions = $row['questions_added'];
+						// ADD 1 THE EXISTING RECORD OF QUESTIONS ADDED
+						$no_of_questions = $row['questions_added'] + 1;
+
+						if($questions < $row['no_of_items']) {
+								// IF NOT EXCEEDS, INSERT...
+								$update = mysqli_query($conn, "UPDATE category SET questions_added='$no_of_questions' WHERE cat_Id='$cat_Id'");
+								if($update) {
+						    	$_SESSION['message'] = "Question has been saved.";
+						      $_SESSION['text'] = "Saved successfully!";
+						      $_SESSION['status'] = "success";
+									header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+						    } else {
+						      $_SESSION['message'] = "Something went wrong while saving the information.";
+						      $_SESSION['text'] = "Please try again.";
+						      $_SESSION['status'] = "error";
+									header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+						    }
+						} else {
+								$_SESSION['message'] = "You have reached the limit of items in this category.";
+					      $_SESSION['text'] = "Please try again.";
+					      $_SESSION['status'] = "error";
+								header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+						}
+						
+
+					} else {
+						$_SESSION['message'] = "Category not found.";
+			      $_SESSION['text'] = "Please try again.";
+			      $_SESSION['status'] = "error";
+						header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+					}
+
+			} else {
+				$_SESSION['message'] = "Something went wrong while saving the information.";
+	      $_SESSION['text'] = "Please try again.";
+	      $_SESSION['status'] = "error";
+				header('Location: category_add_question.php?cat_Id='.$cat_Id.'');
+			}
+
+	}
+}
+
+
+
+
+
+
+// SAVE QUESTION - QUESTIONS_ADD.PHP
+if(isset($_POST['save_quest'])) {
+	$cat_Id         = $_POST['cat_Id'];
+	$question       = $_POST['question'];
+	$question        = str_replace("'", "\'", $question);
+	
+	$choice_one     = $_POST['choice_one'];
+	$choice_one        = str_replace("'", "\'", $choice_one);
+
+	$choice_two     = $_POST['choice_two'];
+	$choice_two        = str_replace("'", "\'", $choice_two);
+
+	$choice_three   = $_POST['choice_three'];
+	$choice_three        = str_replace("'", "\'", $choice_three);
+
+	$choice_four    = $_POST['choice_four'];
+	$choice_four        = str_replace("'", "\'", $choice_four);
+
+	$correct_answer = $_POST['correct_answer'];
+	$correct_answer        = str_replace("'", "\'", $correct_answer);
+	
+
+	$question_exist = mysqli_query($conn, "SELECT * FROM questions WHERE question='$question' AND quest_category_Id='$cat_Id'");
+	if(mysqli_num_rows($question_exist) > 0) {
+			$_SESSION['message'] = "Question already exist under this selected category.";
+      $_SESSION['text'] = "Please try again.";
+      $_SESSION['status'] = "error";
+			header('Location: questions.php');
+	} else {
+
+			$save = mysqli_query($conn, "INSERT INTO questions (quest_category_Id, question, choice_one, choice_two, choice_three, choice_four, correct_answer) VALUES ('$cat_Id', '$question', '$choice_one', '$choice_two', '$choice_three', '$choice_four', '$correct_answer')");
+			if($save) {
+
+					$get_questions_added = mysqli_query($conn, "SELECT * FROM category WHERE cat_Id='$cat_Id'");
+					if(mysqli_num_rows($get_questions_added) > 0) {
+
+						$row = mysqli_fetch_array($get_questions_added);
+						// USED TO COMPARE IN IF STATEMENT BELOW
+						$questions = $row['questions_added'];
+						// ADD 1 THE EXISTING RECORD OF QUESTIONS ADDED
+						$no_of_questions = $row['questions_added'] + 1;
+
+						if($questions < $row['no_of_items']) {
+								// IF NOT EXCEEDS, INSERT...
+								$update = mysqli_query($conn, "UPDATE category SET questions_added='$no_of_questions' WHERE cat_Id='$cat_Id'");
+								if($update) {
+						    	$_SESSION['message'] = "Question has been saved.";
+						      $_SESSION['text'] = "Saved successfully!";
+						      $_SESSION['status'] = "success";
+									header('Location: questions.php');
+						    } else {
+						      $_SESSION['message'] = "Something went wrong while saving the information.";
+						      $_SESSION['text'] = "Please try again.";
+						      $_SESSION['status'] = "error";
+									header('Location: questions.php');
+						    }
+						} else {
+								$_SESSION['message'] = "You have reached the limit of items in this category.";
+					      $_SESSION['text'] = "Please try again.";
+					      $_SESSION['status'] = "error";
+								header('Location: questions.php');
+						}
+						
+					} else {
+						$_SESSION['message'] = "Category not found.";
+			      $_SESSION['text'] = "Please try again.";
+			      $_SESSION['status'] = "error";
+						header('Location: questions.php');
+					}
+
+			} else {
+				$_SESSION['message'] = "Something went wrong while saving the information.";
+	      $_SESSION['text'] = "Please try again.";
+	      $_SESSION['status'] = "error";
+				header('Location: questions.php');
+			}
+
+	}
+}
 
 
 ?>
