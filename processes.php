@@ -119,14 +119,18 @@
 				          $message = '<p>Good day sir/maam <b>'.$firstname.' '.$middlename.' '.$lastname.' '.$suffix.'</b>, this is to inform you that you have successfully registered to the system, SPS Online Entrance examination using your email.</p>
 				          <p><b>NOTE:</b> This is a system generated email. Please do not reply.</p> ';
 
+				      
+
+						    
+
 				          $mail = new PHPMailer(true);                            
 				          try {
 					            //Server settings
 					            $mail->isSMTP();                                     
 					            $mail->Host = 'smtp.gmail.com';                      
 					            $mail->SMTPAuth = true;                             
-					            $mail->Username = 'nhsmedellin@gmail.com';     
-					            $mail->Password = 'fgzyhjjhjxdikkjp';              
+					            $mail->Username = 'goodsamaritan2k20@gmail.com';     
+					            $mail->Password = 'duxkxivrezeuguqe';              
 					            $mail->SMTPOptions = array(
 					            'ssl' => array(
 					            'verify_peer' => false,
@@ -138,11 +142,11 @@
 					            $mail->Port = 465;                                   
 
 					            //Send Email
-					            $mail->setFrom('nhsmedellin@gmail.com');
+					            $mail->setFrom('goodsamaritan2k20@gmail.com');
 
 					            //Recipients
 					            $mail->addAddress($email);              
-					            $mail->addReplyTo('nhsmedellin@gmail.com');
+					            $mail->addReplyTo('goodsamaritan2k20@gmail.com');
 
 					            //Content
 					            $mail->isHTML(true);                                  
